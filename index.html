@@ -1,193 +1,1087 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Cuidado y Uso Seguro de los Equipos de Computación</title>
+
   <style>
-    * { box-sizing: border-box; }
+
+    /* =========================
+       CONFIGURACIÓN GENERAL
+    ========================= */
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: #f3f6f8;
+      background: #eef3f7;
       color: #1f2933;
       line-height: 1.6;
+      transition: 0.3s;
     }
+
+    body.dark {
+      background: #111827;
+      color: #e5e7eb;
+    }
+
+    /* =========================
+       BARRA DE PROGRESO
+    ========================= */
+
+    #progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0%;
+      background: #e0a800;
+      z-index: 9999;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(23, 50, 77, 0.96);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.15);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    nav a:hover {
+      color: #ffd45c;
+      transform: translateY(-2px);
+    }
+
+    .theme-btn {
+      border: none;
+      background: #e0a800;
+      color: #172f47;
+      padding: 8px 13px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
-      background: #17324d;
+      background: linear-gradient(135deg, #17324d, #28577e);
       color: white;
       text-align: center;
-      padding: 45px 20px;
+      padding: 65px 20px;
+      position: relative;
+      overflow: hidden;
     }
+
+    header::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+      top: -100px;
+      left: -80px;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+      bottom: -100px;
+      right: -60px;
+    }
+
     header .icon {
-      font-size: 52px;
+      font-size: 65px;
+      animation: floating 3s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
     }
+
     header h1 {
-      margin: 10px 0;
-      font-size: 32px;
+      margin: 15px auto;
+      max-width: 900px;
+      font-size: 38px;
+      position: relative;
+      z-index: 2;
     }
+
     header p {
-      margin: 0 auto;
+      margin: auto;
       max-width: 700px;
-      font-size: 18px;
+      font-size: 19px;
+      position: relative;
+      z-index: 2;
     }
+
+    .header-btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 13px 25px;
+      background: #e0a800;
+      color: #172f47;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: .3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    }
+
+    @keyframes floating {
+      0%,100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* =========================
+       CONTENIDO
+    ========================= */
+
     main {
-      max-width: 1000px;
-      margin: 30px auto;
+      max-width: 1050px;
+      margin: 35px auto;
       padding: 0 18px;
     }
-    .intro, .card {
+
+    .intro,
+    .card {
       background: white;
-      border-radius: 14px;
-      padding: 25px;
-      margin-bottom: 22px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.08);
+      transition: .3s;
     }
+
+    body.dark .intro,
+    body.dark .card {
+      background: #1f2937;
+      color: #e5e7eb;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,.13);
+    }
+
     .intro {
       border-left: 6px solid #e0a800;
     }
+
     h2 {
       margin-top: 0;
       color: #17324d;
     }
-    ul, ol {
+
+    body.dark h2 {
+      color: #ffd45c;
+    }
+
+    ul,
+    ol {
       padding-left: 25px;
     }
+
     li {
-      margin: 9px 0;
+      margin: 11px 0;
     }
+
+    /* =========================
+       TARJETAS DE COLORES
+    ========================= */
+
     .warning {
       background: #fff4d6;
-      border-left: 5px solid #e0a800;
+      border-left: 6px solid #e0a800;
     }
+
     .danger {
       background: #fdecec;
-      border-left: 5px solid #c0392b;
+      border-left: 6px solid #c0392b;
     }
+
     .good {
       background: #eaf6ee;
-      border-left: 5px solid #2e7d4f;
+      border-left: 6px solid #2e7d4f;
     }
+
+    body.dark .warning {
+      background: #44381d;
+    }
+
+    body.dark .danger {
+      background: #442424;
+    }
+
+    body.dark .good {
+      background: #203b2b;
+    }
+
+    /* =========================
+       GRID
+    ========================= */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .mini-card {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,.08);
+      transition: .3s;
+    }
+
+    body.dark .mini-card {
+      background: #1f2937;
+    }
+
+    .mini-card:hover {
+      transform: scale(1.03);
+    }
+
+    .mini-icon {
+      font-size: 45px;
+      margin-bottom: 8px;
+    }
+
+    /* =========================
+       CHECKLIST
+    ========================= */
+
+    .checklist label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      margin: 8px 0;
+      background: #f4f7f9;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    body.dark .checklist label {
+      background: #374151;
+    }
+
+    .checklist label:hover {
+      transform: translateX(5px);
+    }
+
+    .checklist input {
+      width: 18px;
+      height: 18px;
+      accent-color: #2e7d4f;
+    }
+
+    .checklist input:checked + span {
+      text-decoration: line-through;
+      opacity: .6;
+    }
+
+    .check-progress {
+      height: 10px;
+      background: #dce3e8;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+
+    .check-bar {
+      height: 100%;
+      width: 0%;
+      background: #2e7d4f;
+      transition: .4s;
+    }
+
+    /* =========================
+       ACORDEÓN
+    ========================= */
+
+    .accordion {
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 17px;
+      margin-top: 10px;
+      border-radius: 10px;
+      background: #edf2f5;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      color: #17324d;
+      transition: .3s;
+    }
+
+    body.dark .accordion {
+      background: #374151;
+      color: white;
+    }
+
+    .accordion:hover {
+      background: #dce5eb;
+    }
+
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease;
+      padding: 0 15px;
+    }
+
+    /* =========================
+       FRASE
+    ========================= */
+
     .quote {
-      font-size: 22px;
+      font-size: 23px;
       font-weight: bold;
       text-align: center;
       padding: 18px;
       margin-top: 10px;
     }
+
+    /* =========================
+       BOTÓN AYUDA
+    ========================= */
+
+    .help-btn {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      width: 52px;
+      height: 52px;
+      border: none;
+      border-radius: 50%;
+      background: #c0392b;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,.25);
+      z-index: 999;
+      transition: .3s;
+    }
+
+    .help-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* =========================
+       BOTÓN ARRIBA
+    ========================= */
+
+    #topBtn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 50%;
+      background: #17324d;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+      z-index: 999;
+    }
+
+    /* =========================
+       MENSAJE
+    ========================= */
+
+    #message {
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      background: #17324d;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 12px;
+      display: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,.25);
+      z-index: 2000;
+    }
+
+    /* =========================
+       ANIMACIONES
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: .7s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
       text-align: center;
       background: #17324d;
       color: white;
-      padding: 25px 15px;
-      margin-top: 35px;
+      padding: 30px 15px;
+      margin-top: 45px;
     }
+
     footer p {
-      margin: 5px 0;
+      margin: 6px 0;
     }
-    @media (max-width: 600px) {
-      header h1 { font-size: 25px; }
-      header p { font-size: 16px; }
-      .intro, .card { padding: 19px; }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      nav {
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      header {
+        padding: 50px 18px;
+      }
+
+      header h1 {
+        font-size: 27px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .intro,
+      .card {
+        padding: 20px;
+      }
+
+      .quote {
+        font-size: 19px;
+      }
     }
+
   </style>
 </head>
 
 <body>
 
-  <header>
+  <!-- BARRA DE PROGRESO -->
+  <div id="progress"></div>
+
+  <!-- NAVEGACIÓN -->
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#seguridad">Seguridad</a>
+    <a href="#uso">Uso correcto</a>
+    <a href="#checklist">Checklist</a>
+    <button class="theme-btn" onclick="modoOscuro()">🌙</button>
+  </nav>
+
+  <!-- HEADER -->
+  <header id="inicio">
+
     <div class="icon">⚠️💻</div>
-    <h1>Cuidado y Uso Seguro de los Equipos de Computación</h1>
-    <p>¡Cuida los equipos, cuida tu espacio!</p>
+
+    <h1>
+      Cuidado y Uso Seguro de los Equipos de Computación
+    </h1>
+
+    <p>
+      ¡Cuida los equipos, cuida tu espacio y ayuda a mantener
+      seguro nuestro laboratorio!
+    </p>
+
+    <a href="#seguridad" class="header-btn">
+      Ver recomendaciones ↓
+    </a>
+
   </header>
+
 
   <main>
 
-    <section class="intro">
+    <!-- INTRODUCCIÓN -->
+    <section class="intro reveal">
+
       <h2>💻 ¿Por qué es importante?</h2>
+
       <p>
-        Los computadores y demás equipos tecnológicos son herramientas importantes
-        para nuestro aprendizaje. Utilizarlos correctamente ayuda a prevenir daños
-        y permite que todos podamos aprovecharlos.
+        Los computadores y demás equipos tecnológicos son herramientas
+        importantes para nuestro aprendizaje. Utilizarlos correctamente
+        ayuda a prevenir daños y permite que todos podamos aprovecharlos.
       </p>
+
     </section>
 
-    <section class="card">
+
+    <!-- TARJETAS -->
+    <section class="grid reveal">
+
+      <div class="mini-card">
+        <div class="mini-icon">🛡️</div>
+        <h3>Protección</h3>
+        <p>
+          Evita acciones que puedan causar daños al equipo.
+        </p>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-icon">🤝</div>
+        <h3>Responsabilidad</h3>
+        <p>
+          Usa correctamente los recursos que pertenecen a todos.
+        </p>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-icon">🧹</div>
+        <h3>Orden</h3>
+        <p>
+          Mantén limpio y organizado tu espacio de trabajo.
+        </p>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-icon">💡</div>
+        <h3>Prevención</h3>
+        <p>
+          Informa cualquier problema antes de intentar solucionarlo.
+        </p>
+      </div>
+
+    </section>
+
+
+    <!-- SEGURIDAD -->
+    <section class="card reveal" id="seguridad">
+
       <h2>🛡️ Recomendaciones de seguridad</h2>
+
       <ul>
-        <li>Mantén las manos secas antes de utilizar los equipos.</li>
-        <li>No manipules cables, enchufes o conexiones sin autorización.</li>
-        <li>No coloques líquidos cerca de los computadores.</li>
-        <li>Evita golpear, mover o manipular innecesariamente los equipos.</li>
-        <li>Mantén despejada el área de trabajo.</li>
-        <li>Si notas algún problema, informa inmediatamente al docente.</li>
+
+        <li>💧 Mantén las manos secas antes de utilizar los equipos.</li>
+
+        <li>🔌 No manipules cables, enchufes o conexiones sin autorización.</li>
+
+        <li>🥤 No coloques líquidos cerca de los computadores.</li>
+
+        <li>🖥️ Evita golpear, mover o manipular innecesariamente los equipos.</li>
+
+        <li>🧹 Mantén despejada el área de trabajo.</li>
+
+        <li>👨‍🏫 Si notas algún problema, informa inmediatamente al docente.</li>
+
       </ul>
+
     </section>
 
-    <section class="card">
+
+    <!-- USO CORRECTO -->
+    <section class="card reveal" id="uso">
+
       <h2>💻 Uso correcto del computador</h2>
+
       <ol>
+
         <li>Enciende el equipo siguiendo las indicaciones del docente.</li>
+
         <li>Utiliza teclado, mouse y monitor correctamente.</li>
+
         <li>No instales programas ni cambies configuraciones sin autorización.</li>
+
         <li>No desconectes cables mientras el equipo esté funcionando.</li>
+
         <li>Guarda tu trabajo antes de finalizar.</li>
+
         <li>Apaga el computador correctamente cuando se indique.</li>
+
       </ol>
+
     </section>
 
-    <section class="card warning">
+
+    <!-- CABLES -->
+    <section class="card warning reveal">
+
       <h2>🔌 Cuidado de cables y conexiones</h2>
+
       <p>
-        <strong>No desconectes ni manipules cables innecesariamente.</strong>
+        <strong>
+          No desconectes ni manipules cables innecesariamente.
+        </strong>
       </p>
+
       <p>
-        Las conexiones deben mantenerse ordenadas para evitar daños en los equipos
-        y reducir riesgos dentro del espacio de trabajo.
+        Las conexiones deben mantenerse ordenadas para evitar daños
+        en los equipos y reducir riesgos dentro del espacio de trabajo.
       </p>
+
+      <button class="accordion">
+        💡 ¿Qué debes hacer si ves un cable suelto?
+      </button>
+
+      <div class="panel">
+
+        <p>
+          No intentes conectarlo o repararlo por tu cuenta.
+          Informa al docente o a la persona responsable del laboratorio.
+        </p>
+
+      </div>
+
     </section>
 
-    <section class="card danger">
+
+    <!-- RIESGOS -->
+    <section class="card danger reveal">
+
       <h2>🚨 ¿Qué riesgos se pueden evitar?</h2>
+
       <p>
-        El uso incorrecto de los equipos puede provocar daños en los dispositivos,
-        problemas con las conexiones y dificultades para que otros estudiantes
-        puedan utilizar correctamente el laboratorio.
+        El uso incorrecto de los equipos puede provocar daños en los
+        dispositivos, problemas con las conexiones y dificultades para
+        que otros estudiantes puedan utilizar correctamente el laboratorio.
       </p>
+
       <p>
-        Por eso es importante seguir las indicaciones del docente y cuidar los
-        equipos institucionales.
+        Por eso es importante seguir las indicaciones del docente
+        y cuidar los equipos institucionales.
       </p>
+
+      <button class="accordion">
+        ⚠️ ¿Qué acciones debes evitar?
+      </button>
+
+      <div class="panel">
+
+        <ul>
+          <li>Golpear el teclado o monitor.</li>
+          <li>Colocar líquidos cerca del equipo.</li>
+          <li>Desconectar cables sin autorización.</li>
+          <li>Instalar programas sin permiso.</li>
+          <li>Intentar reparar un equipo.</li>
+        </ul>
+
+      </div>
+
     </section>
 
-    <section class="card good">
+
+    <!-- CHECKLIST -->
+    <section class="card reveal" id="checklist">
+
+      <h2>✅ Checklist de buenas prácticas</h2>
+
+      <p>
+        Marca las acciones que ya realizas correctamente:
+      </p>
+
+      <div class="check-progress">
+        <div class="check-bar" id="checkBar"></div>
+      </div>
+
+      <p id="checkText">
+        0 de 6 completadas
+      </p>
+
+      <div class="checklist">
+
+        <label>
+          <input type="checkbox" onchange="actualizarChecklist()">
+          <span>Mantengo mis manos secas.</span>
+        </label>
+
+        <label>
+          <input type="checkbox" onchange="actualizarChecklist()">
+          <span>Mantengo ordenado mi espacio.</span>
+        </label>
+
+        <label>
+          <input type="checkbox" onchange="actualizarChecklist()">
+          <span>No coloco líquidos cerca del computador.</span>
+        </label>
+
+        <label>
+          <input type="checkbox" onchange="actualizarChecklist()">
+          <span>No manipulo cables sin autorización.</span>
+        </label>
+
+        <label>
+          <input type="checkbox" onchange="actualizarChecklist()">
+          <span>Cuido teclado, mouse y monitor.</span>
+        </label>
+
+        <label>
+          <input type="checkbox" onchange="actualizarChecklist()">
+          <span>Informo al docente si encuentro un problema.</span>
+        </label>
+
+      </div>
+
+    </section>
+
+
+    <!-- NORMA -->
+    <section class="card good reveal">
+
       <h2>🤝 Norma de convivencia</h2>
-      <div class="quote">“Cuida los equipos como si fueran tuyos.”</div>
+
+      <div class="quote">
+        “Cuida los equipos como si fueran tuyos.”
+      </div>
+
       <p>
         Respeta los equipos, el espacio de trabajo y a tus compañeros.
-        Después de utilizarlos, deja el área limpia y ordenada para la siguiente persona.
+        Después de utilizarlos, deja el área limpia y ordenada para
+        la siguiente persona.
       </p>
+
     </section>
 
-    <section class="card">
+
+    <!-- PROBLEMAS -->
+    <section class="card reveal">
+
       <h2>🆘 Si encuentras un problema</h2>
+
       <p>
         Si un computador, cable o conexión presenta algún inconveniente:
       </p>
-      <p class="quote">No intentes repararlo por tu cuenta.</p>
+
+      <div class="quote">
+        🚫 No intentes repararlo por tu cuenta.
+      </div>
+
       <p>
-        Informa al docente o a la persona responsable del laboratorio para que
-        pueda revisarlo.
+        Informa al docente o a la persona responsable del laboratorio
+        para que pueda revisarlo.
       </p>
+
     </section>
 
   </main>
 
+
+  <!-- MENSAJE -->
+  <div id="message"></div>
+
+
+  <!-- BOTÓN AYUDA -->
+  <button class="help-btn" onclick="mostrarAyuda()">
+    ?
+  </button>
+
+
+  <!-- BOTÓN ARRIBA -->
+  <button id="topBtn" onclick="volverArriba()">
+    ↑
+  </button>
+
+
+  <!-- FOOTER -->
   <footer>
+
     <p>📱 Gracias por cuidar nuestros equipos.</p>
-    <p><strong>Proyecto Interdisciplinario: “Señalizando nuestro espacio”</strong></p>
+
+    <p>
+      <strong>
+        Proyecto Interdisciplinario:
+        “Señalizando nuestro espacio”
+      </strong>
+    </p>
+
     <p>Tercero Técnico</p>
+
   </footer>
+
+
+  <script>
+
+    /* =========================
+       MODO OSCURO
+    ========================= */
+
+    function modoOscuro() {
+
+      document.body.classList.toggle("dark");
+
+      const boton = document.querySelector(".theme-btn");
+
+      if (document.body.classList.contains("dark")) {
+
+        boton.textContent = "☀️";
+
+      } else {
+
+        boton.textContent = "🌙";
+
+      }
+
+    }
+
+
+    /* =========================
+       BARRA DE PROGRESO
+    ========================= */
+
+    window.addEventListener("scroll", function() {
+
+      const scrollTop = window.scrollY;
+
+      const altura =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+      const porcentaje =
+        (scrollTop / altura) * 100;
+
+      document.getElementById("progress").style.width =
+        porcentaje + "%";
+
+
+      /* BOTÓN ARRIBA */
+
+      const topBtn = document.getElementById("topBtn");
+
+      if (scrollTop > 400) {
+
+        topBtn.style.display = "block";
+
+      } else {
+
+        topBtn.style.display = "none";
+
+      }
+
+    });
+
+
+    /* =========================
+       VOLVER ARRIBA
+    ========================= */
+
+    function volverArriba() {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    /* =========================
+       CHECKLIST
+    ========================= */
+
+    function actualizarChecklist() {
+
+      const checks =
+        document.querySelectorAll(
+          '.checklist input[type="checkbox"]'
+        );
+
+      let completados = 0;
+
+      checks.forEach(check => {
+
+        if (check.checked) {
+
+          completados++;
+
+        }
+
+      });
+
+      const total = checks.length;
+
+      const porcentaje =
+        (completados / total) * 100;
+
+      document.getElementById("checkBar").style.width =
+        porcentaje + "%";
+
+      document.getElementById("checkText").textContent =
+        completados + " de " + total + " completadas";
+
+
+      if (completados === total) {
+
+        mostrarMensaje(
+          "🎉 ¡Excelente! Estás cuidando correctamente los equipos."
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       MENSAJES
+    ========================= */
+
+    function mostrarMensaje(texto) {
+
+      const mensaje =
+        document.getElementById("message");
+
+      mensaje.textContent = texto;
+
+      mensaje.style.display = "block";
+
+      setTimeout(function() {
+
+        mensaje.style.display = "none";
+
+      }, 3500);
+
+    }
+
+
+    /* =========================
+       BOTÓN AYUDA
+    ========================= */
+
+    function mostrarAyuda() {
+
+      mostrarMensaje(
+        "🆘 Si encuentras un problema, informa al docente. No intentes reparar el equipo."
+      );
+
+    }
+
+
+    /* =========================
+       ACORDEONES
+    ========================= */
+
+    const accordions =
+      document.querySelectorAll(".accordion");
+
+    accordions.forEach(function(button) {
+
+      button.addEventListener("click", function() {
+
+        const panel = this.nextElementSibling;
+
+        if (panel.style.maxHeight) {
+
+          panel.style.maxHeight = null;
+
+        } else {
+
+          panel.style.maxHeight =
+            panel.scrollHeight + "px";
+
+        }
+
+      });
+
+    });
+
+
+    /* =========================
+       ANIMACIONES AL HACER SCROLL
+    ========================= */
+
+    const elementos =
+      document.querySelectorAll(".reveal");
+
+    function mostrarElementos() {
+
+      const alturaPantalla =
+        window.innerHeight;
+
+      elementos.forEach(function(elemento) {
+
+        const posicion =
+          elemento.getBoundingClientRect().top;
+
+        if (posicion < alturaPantalla - 80) {
+
+          elemento.classList.add("active");
+
+        }
+
+      });
+
+    }
+
+    window.addEventListener(
+      "scroll",
+      mostrarElementos
+    );
+
+    mostrarElementos();
+
+  </script>
 
 </body>
 </html>
+```
+
